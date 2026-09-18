@@ -17,14 +17,156 @@
 
 > **Currently under development** — APIs, dashboard, and GitHub Pages site are actively being built. Expect rapid changes; the live site isn’t ready yet.
 
-Cross-platform **Spotify ↔ Apple Music** playlist sync with ISRC matching and harmonic recommendations.
+**Sync your library. Generate playlists that slap.**
 
-**Site (soon):** https://wifiknight45.github.io/harmonic-bridge/
+Live site (GitHub Pages): **[https://wifiknight45.github.io/harmonic-bridge/](https://wifiknight45.github.io/harmonic-bridge/)**
 
-Connect your libraries → sync playlists → generate dope harmonic mixes in the browser.
+harmonic-bridge is a consumer music product in the browser: connect Spotify & Apple Music, sync playlists across platforms with ISRC + fuzzy matching, then generate Camelot-aware harmonic-flow mixes (Ramp Up / Peak Energy / Chill Down).
+
+> Demo mode ships on by default — explore the full sync + generate experience before you wire real credentials.
+
 
 ## Docs
 
 - **[Changelog](./CHANGELOG.md)** — features, commits, PRs, and release notes
 - [Pull requests](https://github.com/wifiknight45/harmonic-bridge/pulls)
 - [Commits](https://github.com/wifiknight45/harmonic-bridge/commits/main)
+
+---
+
+## Product flow
+
+1. **Connect** Spotify and/or Apple Music (or stay in demo)
+2. **Sync your library** — source → target playlist conversion with live match progress
+3. **Generate** — cosine-similarity recommendations sequenced on the Camelot wheel
+
+The Pages site is the vibe layer. **OAuth secrets, Spotify client secrets, and Apple Music `.p8` keys live only on the backend** — never in the static frontend.
+
+---
+
+## Repo layout
+
+```
+harmonic-bridge/
+├── frontend/          # Vite React 18 + Tailwind + React Query (GitHub Pages)
+├── backend/           # FastAPI + SQLAlchemy async + matching + recommender
+├── docker-compose.yml # Postgres + backend
+├── CHANGELOG.md       # Release notes and history
+└── .github/workflows/ # Pages deploy
+```
+
+---
+
+## GitHub Pages setup
+
+1. Push to `main` (workflow builds `frontend/` and deploys).
+2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Optional: set repository variable `VITE_API_URL` to your hosted FastAPI base URL
+   (e.g. `https://api.example.com`) so the live site can call the backend.
+4. Site URL: `https://wifiknight45.github.io/harmonic-bridge/`
+
+Vite is configured with `base: '/harmonic-bridge/'` so assets resolve under the repo path.
+
+Without `VITE_API_URL`, the UI still loads; connect/sync/generate need a reachable API
+(local proxy in dev, or a hosted backend for Pages).
+
+---
+
+## Quick start (local)
+
+### Backend
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn app.main:app --reload --port 8000
+```
+
+OpenAPI docs: http://localhost:8000/docs
+
+### Frontend
+
+```bash
+cd frontend
+cp .env.example .env   # leave VITE_API_URL empty to use Vite proxy → :8000
+npm install
+npm run dev
+```
+
+App: http://localhost:5173/harmonic-bridge/
+
+### Docker (Postgres + backend)
+
+```bash
+docker compose up --build
+```
+
+Backend on `:8000`, Postgres on `:5432`. Demo mode activates when Spotify/Apple env vars are empty.
+
+---
+
+## Environment variables
+
+### Backend (`backend/.env`)
+
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | `sqlite+aiosqlite:///./harmonic_bridge.db` or Postgres async URL |
+| `SECRET_KEY` | JWT signing for session tokens |
+| `CORS_ORIGINS` | Comma-separated origins (include Pages origin) |
+| `SPOTIPY_CLIENT_ID` / `SPOTIPY_CLIENT_SECRET` / `SPOTIPY_REDIRECT_URI` | Spotify OAuth |
+| `APPLE_DEVELOPER_KEY_ID` / `APPLE_TEAM_ID` / `APPLE_PRIVATE_KEY_PATH` | MusicKit ES256 developer token |
+| `APPLE_MUSIC_USER_TOKEN` | Optional user token for library playlist writes |
+| `DEMO_MODE` | `auto` (default) / `true` / `false` |
+
+### Frontend (`frontend/.env`)
+
+| Variable | Purpose |
+|----------|---------|
+| `VITE_API_URL` | Hosted API base (no trailing slash). Empty = same-origin / Vite proxy |
+
+**Do not put Spotify secrets or Apple `.p8` keys in frontend env or Pages.**
+
+---
+
+## API highlights
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/v1/auth/status` | Connection + demo status |
+| GET | `/api/v1/auth/spotify` | OAuth URL (or demo) |
+| POST | `/api/v1/auth/spotify/demo-connect` | One-click demo connect |
+| POST | `/api/v1/playlists/sync` | Cross-platform sync |
+| POST | `/api/v1/recommend/mix` | Harmonic-flow recommendations |
+| GET | `/api/v1/analytics/taste` | Taste radar features |
+
+### Matching
+
+1. Exact **ISRC** match
+2. Else normalized Title + Artist **rapidfuzz** ratio **> 0.85**
+
+### Recommender
+
+Feature vector: `[danceability, energy, valence, tempo_normalized, acousticness]` → cosine similarity, then Camelot + BPM energy-curve sort.
+
+---
+
+## Tests
+
+```bash
+cd backend
+pytest tests/ -q
+```
+
+---
+
+## Changelog
+
+See **[CHANGELOG.md](./CHANGELOG.md)** for release history, features, and notes.
+
+## License
+
+MIT — build something that goes hard.
