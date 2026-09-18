@@ -17,6 +17,9 @@ Site: https://wifiknight45.github.io/harmonic-bridge/
 - Enable GitHub Pages source = GitHub Actions (if not already)
 - Hosted API URL via repo variable `VITE_API_URL`
 
+### Open pull requests
+- [#2](https://github.com/wifiknight45/harmonic-bridge/pull/2) — Dependabot: bump `vite` 5.4.21 → 8.3.0 in `/frontend` (npm_and_yarn group)
+
 ### Notes
 - Product goal: browser site to sync libraries and generate harmonic playlists
 - Static Pages frontend; OAuth secrets stay on the backend only
@@ -32,6 +35,7 @@ Site: https://wifiknight45.github.io/harmonic-bridge/
 - Dashboard pages: Sync, Recommendations
 - UI: Account status, playlist converter, harmonic flow controls, taste profile
 - Frontend API client + Tailwind dark glass styling (Spotify / Apple Music accents)
+- Project changelog linked from README
 
 ### Commits
 - [`055ebd2`](https://github.com/wifiknight45/harmonic-bridge/commit/055ebd23a1a8a9bfb9e23d25e8ee0c9780e6597b) — feat: add Pages frontend and deploy workflow
@@ -39,9 +43,11 @@ Site: https://wifiknight45.github.io/harmonic-bridge/
 - [`93a1931`](https://github.com/wifiknight45/harmonic-bridge/commit/93a193107424d0aebe27bc9263add4c3254c3f19) — feat: add frontend UI components
 - [`1c7072e`](https://github.com/wifiknight45/harmonic-bridge/commit/1c7072ebf6b9eb77373a2ea504e5fc361d5a6b3e) — chore: add frontend package-lock.json
 - [`a3cc615`](https://github.com/wifiknight45/harmonic-bridge/commit/a3cc615af3ebec06da7c11b9e48fcc20a197990f) — chore: remove stub package-lock so npm install can resolve deps
+- [`6b35000`](https://github.com/wifiknight45/harmonic-bridge/commit/6b350004ff1b053bbb1b294d46ac1a9d75368a26) — docs: add CHANGELOG with features, commits, and notes
+- [`17e47cc`](https://github.com/wifiknight45/harmonic-bridge/commit/17e47ccd10fad41633f52813d66e910ece629e14) — docs: link CHANGELOG from README
 
 ### Pull requests
-- None yet (changes landed directly on `main`)
+- Feature work landed directly on `main` (no feature PRs yet)
 
 ---
 
