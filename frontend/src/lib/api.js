@@ -1,25 +1,48 @@
 /**
  * API client. VITE_API_URL points the static GitHub Pages site at a hosted backend.
  * OAuth secrets and Apple .p8 keys live ONLY on the backend — never in Pages.
+ *
+ * When VITE_API_URL is unset or the fetch fails, requests fall back to the
+ * in-browser demo store so connect / sync / generate stay usable offline.
  */
+
+import { handleDemoRequest } from './demoStore'
 
 const RAW_BASE = import.meta.env.VITE_API_URL || ''
 export const API_BASE = RAW_BASE.replace(/\/$/, '')
 
+/** True when serving responses from the local demo store (no live API). */
+let offlineDemoActive = !API_BASE
+
+export function isDemoOffline() {
+  return offlineDemoActive
+}
+
 async function request(path, options = {}) {
-  const url = `${API_BASE}${path}`
-  const res = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
-    ...options,
-  })
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(text || `Request failed (${res.status})`)
+  if (!API_BASE) {
+    offlineDemoActive = true
+    return handleDemoRequest(path, options)
   }
-  return res.json()
+
+  try {
+    const url = `${API_BASE}${path}`
+    const res = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(options.headers || {}),
+      },
+      ...options,
+    })
+    if (!res.ok) {
+      const text = await res.text().catch(() => '')
+      throw new Error(text || `Request failed (${res.status})`)
+    }
+    offlineDemoActive = false
+    return res.json()
+  } catch {
+    offlineDemoActive = true
+    return handleDemoRequest(path, options)
+  }
 }
 
 export const api = {
