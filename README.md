@@ -154,6 +154,36 @@ Feature vector: `[danceability, energy, valence, tempo_normalized, acousticness]
 
 ---
 
+
+
+## AI features
+
+**Runs fully free — no AI API keys needed.** All six AI Studio features use local
+heuristics, numpy/scikit-learn, and demo fixtures. Offline / GitHub Pages demo mode
+Runs fully free — no AI API keys needed (no OpenAI/Anthropic or other paid LLM providers).
+
+| Feature | Endpoint | What it does |
+|---------|----------|--------------|
+| Taste twin | `POST /api/v1/ai/taste-twin` | Compact library embedding + cross-platform playlist seeds |
+| Mood to mix | `POST /api/v1/ai/mood-mix` | NL mood -> energy/valence/tempo curve -> Camelot-aware playlist |
+| Gap filler | `POST /api/v1/ai/gap-fill` | On ISRC/fuzzy miss, suggest alternate recordings with confidence |
+| DJ coach | `POST /api/v1/ai/dj-coach` | Critique key clashes, energy cliffs, vocal stacking + reorder |
+| Lyric-safe | `POST /api/v1/ai/lyric-safe` | Optional family/focus policy before sync (metadata heuristic) |
+| Weekly drop | `GET/POST /api/v1/ai/weekly-drop` | Digest: mismatches fixed, one fresh playlist, why-blurb |
+
+### Weekly drop cron / routine hook
+
+Schedule a weekly call to the digest endpoint (no paid AI required):
+
+```bash
+# cron example (Mondays 9:00)
+0 9 * * 1 curl -sS -X POST "$API_BASE/api/v1/ai/weekly-drop" -H 'Content-Type: application/json' -d '{}'
+
+# or GitHub Actions schedule -> GET /api/v1/ai/weekly-drop
+```
+
+UI: **AI Studio** page (`/ai`) with tabs for all six features. Demo store covers offline Pages.
+
 ## Tests
 
 ```bash
