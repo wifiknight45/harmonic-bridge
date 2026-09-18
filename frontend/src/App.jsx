@@ -1,13 +1,15 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
-import { Disc3, Home, Sparkles, RefreshCw } from 'lucide-react'
+import { Disc3, Home, Sparkles, RefreshCw, Brain } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import Sync from './pages/Sync'
 import Recommendations from './pages/Recommendations'
+import AIStudio from './pages/AIStudio'
 
 const nav = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/sync', label: 'Sync Library', icon: RefreshCw },
   { to: '/recommendations', label: 'Generate', icon: Sparkles },
+  { to: '/ai', label: 'AI Studio', icon: Brain },
 ]
 
 export default function App() {
@@ -51,6 +53,7 @@ export default function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/sync" element={<Sync />} />
           <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/ai" element={<AIStudio />} />
         </Routes>
       </main>
 
