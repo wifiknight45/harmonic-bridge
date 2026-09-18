@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: harmonic
+      POSTGRES_PASSWORD: harmonic
+      POSTGRES_DB: harmonic_bridge
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U harmonic -d harmonic_bridge"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://harmonic:harmonic@db:5432/harmonic_bridge
+      CORS_ORIGINS: http://localhost:5173,https://wifiknight45.github.io
+      DEMO_MODE: auto
+      SECRET_KEY: docker-dev-secret-change-me
+      SPOTIPY_CLIENT_ID: ${SPOTIPY_CLIENT_ID:-}
+      SPOTIPY_CLIENT_SECRET: ${SPOTIPY_CLIENT_SECRET:-}
+      SPOTIPY_REDIRECT_URI: ${SPOTIPY_REDIRECT_URI:-http://localhost:8000/api/v1/auth/spotify/callback}
+      APPLE_DEVELOPER_KEY_ID: ${APPLE_DEVELOPER_KEY_ID:-}
+      APPLE_TEAM_ID: ${APPLE_TEAM_ID:-}
+      APPLE_PRIVATE_KEY_PATH: ${APPLE_PRIVATE_KEY_PATH:-./AuthKey.p8}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+
+volumes:
+  pgdata:
