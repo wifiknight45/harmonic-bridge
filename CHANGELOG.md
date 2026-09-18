@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- AI Studio with six free local features (no paid LLM / API keys required):
+  taste twin, mood to mix, gap filler, DJ coach, lyric-safe filter, weekly drop
+- Backend modules under `backend/app/services/ai/` + `/api/v1/ai/*` endpoints
+- Frontend AI Studio page (`/ai`) with offline demo-store fallbacks
+- README section documenting free AI features and weekly-drop cron hook
+
+
+### Added
+- Client-side offline demo mode for GitHub Pages when `VITE_API_URL` is unset or the API is unreachable (`frontend/src/lib/demoStore.js`)
+- API client falls back to in-browser mock responses for auth, playlists, sync, recommend, and taste
+- Calm "Demo mode (no API)" banner in AccountStatus instead of a hard backend-unreachable dead-end
+
 ### Planned
 - Hosted FastAPI backend with OAuth for Spotify and Apple Music
 - Wire `VITE_API_URL` on GitHub Pages to a production API
@@ -44,7 +57,7 @@ Initial public scaffold and GitHub Pages frontend.
 - Live site: https://wifiknight45.github.io/harmonic-bridge/
 - Vite `base` and React Router `basename` are `/harmonic-bridge/`
 - OAuth secrets and Apple Music `.p8` keys must stay on the backend only
-- Without `VITE_API_URL`, the Pages UI loads as a static shell; sync/generate need a reachable API
+- Without `VITE_API_URL` (or if the API is down), Pages runs fully in client-side demo mode — connect/sync/generate use local mock data
 - Workflow uses `npm ci || npm install` so builds succeed even if `package-lock.json` is absent
 
 ### Commits / PRs (selected)
