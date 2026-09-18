@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Multi-platform ISRC sync engine with Spotify / Apple Music adapters and Last.fm scrobble helper
+- `ConnectedPlatform` model for ISRC-sync credentials (separate from `ConnectedAccount`)
+- `POST /api/v1/sync/execute` endpoint to kick off cross-platform ISRC matching
+- Unit tests for sync engine with mocked adapters (`backend/tests/test_sync_engine.py`)
 - Client-side offline demo mode for GitHub Pages when `VITE_API_URL` is unset or the API is unreachable (`frontend/src/lib/demoStore.js`)
 - API client falls back to in-browser mock responses for auth, playlists, sync, recommend, and taste
 - Calm "Demo mode (no API)" banner in AccountStatus instead of a hard backend-unreachable dead-end
