@@ -10,6 +10,7 @@
 [![Spotify](https://img.shields.io/badge/Spotify-1DB954?logo=spotify&logoColor=white)](https://developer.spotify.com/)
 [![Apple Music](https://img.shields.io/badge/Apple%20Music-FA243C?logo=applemusic&logoColor=white)](https://developer.apple.com/musickit/)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222?logo=github&logoColor=white)](https://wifiknight45.github.io/harmonic-bridge/)
+[![Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-blue.svg)](./CHANGELOG.md)
 [![GitHub stars](https://img.shields.io/github/stars/wifiknight45/harmonic-bridge?style=social)](https://github.com/wifiknight45/harmonic-bridge/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/issues)
 [![Last commit](https://img.shields.io/github/last-commit/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/commits/main)
@@ -21,3 +22,9 @@ Cross-platform **Spotify ↔ Apple Music** playlist sync with ISRC matching and 
 **Site (soon):** https://wifiknight45.github.io/harmonic-bridge/
 
 Connect your libraries → sync playlists → generate dope harmonic mixes in the browser.
+
+## Docs
+
+- **[Changelog](./CHANGELOG.md)** — features, commits, PRs, and release notes
+- [Pull requests](https://github.com/wifiknight45/harmonic-bridge/pulls)
+- [Commits](https://github.com/wifiknight45/harmonic-bridge/commits/main)
