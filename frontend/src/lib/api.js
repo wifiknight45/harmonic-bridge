@@ -70,4 +70,41 @@ export const api = {
     request(
       `/api/v1/analytics/taste?platform=${platform}&playlist_id=${encodeURIComponent(playlistId)}`,
     ),
+  tasteTwin: (body = {}) =>
+    request('/api/v1/ai/taste-twin', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  moodMix: (body) =>
+    request('/api/v1/ai/mood-mix', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  gapFill: (body) =>
+    request('/api/v1/ai/gap-fill', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  djCoach: (body = {}) =>
+    request('/api/v1/ai/dj-coach', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  lyricSafe: (body = {}) =>
+    request('/api/v1/ai/lyric-safe', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  weeklyDrop: (body = {}) =>
+    request('/api/v1/ai/weekly-drop', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+  weeklyDropGet: (weekLabel) =>
+    request(
+      weekLabel
+        ? `/api/v1/ai/weekly-drop?week_label=${encodeURIComponent(weekLabel)}`
+        : '/api/v1/ai/weekly-drop',
+    ),
+  aiFeatures: () => request('/api/v1/ai/features'),
 }
