@@ -10,16 +10,19 @@
 [![Spotify](https://img.shields.io/badge/Spotify-1DB954?logo=spotify&logoColor=white)](https://developer.spotify.com/)
 [![Apple Music](https://img.shields.io/badge/Apple%20Music-FA243C?logo=applemusic&logoColor=white)](https://developer.apple.com/musickit/)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222?logo=github&logoColor=white)](https://wifiknight45.github.io/harmonic-bridge/)
+[![API](https://img.shields.io/badge/API-Render-46E3B7?logo=render&logoColor=white)](https://harmonic-bridge-api.onrender.com)
 [![Changelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog-blue.svg)](./CHANGELOG.md)
 [![GitHub stars](https://img.shields.io/github/stars/wifiknight45/harmonic-bridge?style=social)](https://github.com/wifiknight45/harmonic-bridge/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/issues)
 [![Last commit](https://img.shields.io/github/last-commit/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/commits/main)
 
-> **Currently under development** — APIs, dashboard, and GitHub Pages site are actively being built. Expect rapid changes; the live site isn’t ready yet.
+> **Currently under development** — GitHub Pages UI + Render API are live; real Spotify OAuth still being wired. Expect rapid changes.
 
 **Sync your library. Generate playlists that slap.**
 
 Live site (GitHub Pages): **[https://wifiknight45.github.io/harmonic-bridge/](https://wifiknight45.github.io/harmonic-bridge/)**
+
+Hosted API (Render, HTTPS): **[https://harmonic-bridge-api.onrender.com](https://harmonic-bridge-api.onrender.com)** · [health](https://harmonic-bridge-api.onrender.com/health) · [docs](https://harmonic-bridge-api.onrender.com/docs)
 
 harmonic-bridge is a consumer music product in the browser: connect Spotify & Apple Music, sync playlists across platforms with ISRC + fuzzy matching, then generate Camelot-aware harmonic-flow mixes (Ramp Up / Peak Energy / Chill Down).
 
@@ -62,7 +65,7 @@ harmonic-bridge/
 1. Push to `main` (workflow builds `frontend/` and deploys).
 2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Optional: set repository variable `VITE_API_URL` to your hosted FastAPI base URL
-   (e.g. `https://api.example.com`) so the live site can call the backend.
+   (currently `https://harmonic-bridge-api.onrender.com`) so the live site can call the backend.
 4. Site URL: `https://wifiknight45.github.io/harmonic-bridge/`
 
 Vite is configured with `base: '/harmonic-bridge/'` so assets resolve under the repo path.
