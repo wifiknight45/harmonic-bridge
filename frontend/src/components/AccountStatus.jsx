@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CheckCircle2, Link2, Music2, Loader2, Info } from 'lucide-react'
 import { api, isDemoOffline } from '../lib/api'
 
-function PlatformCard({ name, colorClass, status, onConnect, connecting, demo }) {
+function PlatformCard({ name, colorClass, status, onConnect, connecting, demo, offline }) {
   const connected = status?.connected
   return (
     <div className="glass flex flex-1 flex-col gap-4 p-5">
@@ -34,7 +34,13 @@ function PlatformCard({ name, colorClass, status, onConnect, connecting, demo })
         disabled={connecting}
       >
         {connecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Link2 className="h-4 w-4" />}
-        {connected ? 'Reconnect' : `Connect ${name}`}
+        {connected
+          ? offline || demo
+            ? 'Demo unlocked'
+            : 'Reconnect'
+          : offline || demo
+            ? `Unlock demo ${name}`
+            : `Connect ${name}`}
       </button>
     </div>
   )
@@ -72,7 +78,6 @@ export default function AccountStatus() {
     )
   }
 
-  // Offline demo responses always succeed; this path is only a safety net.
   if (isError && !isDemoOffline()) {
     return (
       <div className="glass space-y-3 border-white/15 p-6">
@@ -95,9 +100,9 @@ export default function AccountStatus() {
           <div className="min-w-0 flex-1 space-y-1">
             <p className="font-medium text-glow">Demo mode (no API)</p>
             <p className="text-xs text-white/50">
-              Connect, sync, and generate run on local mock data. Set{' '}
-              <code className="text-spotify">VITE_API_URL</code> to your hosted API for live sync —
-              the UI stays fully usable either way.
+              Unlock demo unlocks a local mock library (not live Spotify/Apple OAuth). Sync and
+              generate use browser mock data. Live OAuth needs a free-hosted backend and{' '}
+              <code className="text-spotify">VITE_API_URL</code> later — the UI stays usable now.
             </p>
           </div>
           <span className="chip border-glow/40 text-glow">Offline demo</span>
@@ -106,7 +111,9 @@ export default function AccountStatus() {
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h2 className="text-xl font-bold">Your accounts</h2>
-          <p className="text-sm text-white/55">Connect once — then sync & generate anytime.</p>
+          <p className="text-sm text-white/55">
+            Unlock demo libraries — then sync and generate with mock data.
+          </p>
         </div>
         {data?.demo_mode && !offline && (
           <span className="chip border-glow/40 text-glow">Demo mode · no keys required</span>
@@ -118,6 +125,7 @@ export default function AccountStatus() {
           colorClass="bg-spotify"
           status={data?.spotify}
           demo={data?.demo_mode}
+          offline={offline}
           connecting={spotifyMut.isPending}
           onConnect={() => spotifyMut.mutate()}
         />
@@ -126,6 +134,7 @@ export default function AccountStatus() {
           colorClass="bg-apple"
           status={data?.apple}
           demo={data?.demo_mode}
+          offline={offline}
           connecting={appleMut.isPending}
           onConnect={() => appleMut.mutate()}
         />
