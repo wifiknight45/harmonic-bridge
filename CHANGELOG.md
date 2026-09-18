@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Wire `VITE_API_URL` on GitHub Pages to a production API
 - Persist user sessions and library sync history
 
+### Fixed
+- Pages deploy workflow no longer requires `package-lock.json` for npm cache
+- Enabled GitHub Pages (build_type: workflow) so `actions/deploy-pages` can publish
+
 ## [0.1.0] - 2026-09-18
 
 Initial public scaffold and GitHub Pages frontend.
@@ -26,29 +30,32 @@ Initial public scaffold and GitHub Pages frontend.
 - FastAPI backend: auth, playlists sync, recommend, analytics endpoints
 - Matching engine (exact ISRC, then Title+Artist rapidfuzz)
 - Harmonic-flow recommender (cosine similarity + Camelot/BPM energy curves)
-- Demo data services so the product works without API keys
+- Demo data / Spotify / Apple Music service layers
 - Docker Compose for Postgres + backend
 - Alembic initial migration and backend tests for matching/recommender
 - Project `.gitignore` excluding secrets, `node_modules`, `.venv`, and build artifacts
+- `CHANGELOG.md` linked from README (Docs + Changelog section)
 
 ### Documentation
 - Polished README with badges, Pages setup, env vars, and API highlights
 - This changelog
 
 ### Notes
-- Live site target: https://wifiknight45.github.io/harmonic-bridge/
+- Live site: https://wifiknight45.github.io/harmonic-bridge/
 - Vite `base` and React Router `basename` are `/harmonic-bridge/`
 - OAuth secrets and Apple Music `.p8` keys must stay on the backend only
 - Without `VITE_API_URL`, the Pages UI loads as a static shell; sync/generate need a reachable API
 - Workflow uses `npm ci || npm install` so builds succeed even if `package-lock.json` is absent
 
-### Commits (selected)
+### Commits / PRs (selected)
 - `feat: add Pages frontend and deploy workflow`
 - `feat: add frontend pages and API client`
 - `feat: add frontend UI components`
-- `feat: add backend source`
-- `docs: polish README and add docker-compose and gitignore`
-- `docs: add CHANGELOG and link from README`
+- `feat: add backend source` (foundation, endpoints, matching, recommender, platform services)
+- `docs: polish README with Pages setup, Docs, and Changelog section`
+- `docs: add CHANGELOG, gitignore, and docker-compose`
+- `fix: make Pages workflow succeed without package-lock cache`
+- No open PRs at initial release; work landed directly on `main`
 
 [Unreleased]: https://github.com/wifiknight45/harmonic-bridge/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/wifiknight45/harmonic-bridge/releases/tag/v0.1.0
