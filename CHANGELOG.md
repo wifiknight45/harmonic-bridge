@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Asynchronous per-platform sync queue with rate-limit backoff and retry handling
 - Client-side offline demo mode for GitHub Pages when `VITE_API_URL` is unset or the API is unreachable (`frontend/src/lib/demoStore.js`)
 - API client falls back to in-browser mock responses for auth, playlists, sync, recommend, and taste
 - Calm "Demo mode (no API)" banner in AccountStatus instead of a hard backend-unreachable dead-end
