@@ -20,9 +20,11 @@
 
 **Sync your library. Generate playlists that slap.**
 
-Live site (GitHub Pages): **[https://wifiknight45.github.io/harmonic-bridge/](https://wifiknight45.github.io/harmonic-bridge/)**
+**App UI (use this):** **[https://wifiknight45.github.io/harmonic-bridge/](https://wifiknight45.github.io/harmonic-bridge/)** — connect, sync, generate playlists
 
-Hosted API (Render, HTTPS): **[https://harmonic-bridge-api.onrender.com](https://harmonic-bridge-api.onrender.com)** · [health](https://harmonic-bridge-api.onrender.com/health) · [docs](https://harmonic-bridge-api.onrender.com/docs)
+**API (Render):** **[https://harmonic-bridge-api.onrender.com](https://harmonic-bridge-api.onrender.com)** · [health](https://harmonic-bridge-api.onrender.com/health) · [docs](https://harmonic-bridge-api.onrender.com/docs)
+
+> Opening the Render URL shows an API landing page. The interactive product is on GitHub Pages (wired to this API via `VITE_API_URL`).
 
 harmonic-bridge is a consumer music product in the browser: connect Spotify & Apple Music, sync playlists across platforms with ISRC + fuzzy matching, then generate Camelot-aware harmonic-flow mixes (Ramp Up / Peak Energy / Chill Down).
 
