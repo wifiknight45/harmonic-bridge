@@ -1,5 +1,6 @@
 # harmonic-bridge
 
+[![Status](https://img.shields.io/badge/status-under%20development-orange.svg)](https://github.com/wifiknight45/harmonic-bridge)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -12,6 +13,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/wifiknight45/harmonic-bridge?style=social)](https://github.com/wifiknight45/harmonic-bridge/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/issues)
 [![Last commit](https://img.shields.io/github/last-commit/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/commits/main)
+
+> 🚧 **Currently under development** — APIs, dashboard, and GitHub Pages site are actively being built. Expect rapid changes; the live site isn’t ready yet.
 
 Cross-platform **Spotify ↔ Apple Music** playlist sync with ISRC matching and harmonic recommendations.
 
