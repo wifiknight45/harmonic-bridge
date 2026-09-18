@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { CheckCircle2, Link2, Music2, Loader2 } from 'lucide-react'
-import { api } from '../lib/api'
+import { CheckCircle2, Link2, Music2, Loader2, Info } from 'lucide-react'
+import { api, isDemoOffline } from '../lib/api'
 
 function PlatformCard({ name, colorClass, status, onConnect, connecting, demo }) {
   const connected = status?.connected
@@ -72,26 +72,43 @@ export default function AccountStatus() {
     )
   }
 
-  if (isError) {
+  // Offline demo responses always succeed; this path is only a safety net.
+  if (isError && !isDemoOffline()) {
     return (
-      <div className="glass space-y-3 border-apple/30 p-6">
-        <p className="font-semibold text-apple">Backend not reachable</p>
-        <p className="text-sm text-white/60">
-          Set <code className="text-spotify">VITE_API_URL</code> to your hosted API, or run the backend locally.
-          Demo UI still works once the API is up — no secrets needed on Pages.
+      <div className="glass space-y-3 border-white/15 p-6">
+        <p className="font-semibold text-white/80">Could not load account status</p>
+        <p className="text-sm text-white/55">
+          Retrying will use local demo data. Optional:{' '}
+          <code className="text-spotify">VITE_API_URL</code> for live sync.
         </p>
       </div>
     )
   }
 
+  const offline = isDemoOffline() || data?.offline_demo
+
   return (
     <section className="space-y-4">
+      {offline && (
+        <div className="flex flex-wrap items-start gap-3 rounded-2xl border border-glow/25 bg-glow/5 px-4 py-3 text-sm text-white/70">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-glow" />
+          <div className="min-w-0 flex-1 space-y-1">
+            <p className="font-medium text-glow">Demo mode (no API)</p>
+            <p className="text-xs text-white/50">
+              Connect, sync, and generate run on local mock data. Set{' '}
+              <code className="text-spotify">VITE_API_URL</code> to your hosted API for live sync —
+              the UI stays fully usable either way.
+            </p>
+          </div>
+          <span className="chip border-glow/40 text-glow">Offline demo</span>
+        </div>
+      )}
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h2 className="text-xl font-bold">Your accounts</h2>
           <p className="text-sm text-white/55">Connect once — then sync & generate anytime.</p>
         </div>
-        {data?.demo_mode && (
+        {data?.demo_mode && !offline && (
           <span className="chip border-glow/40 text-glow">Demo mode · no keys required</span>
         )}
       </div>
