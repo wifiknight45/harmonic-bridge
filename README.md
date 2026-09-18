@@ -14,7 +14,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/issues)
 [![Last commit](https://img.shields.io/github/last-commit/wifiknight45/harmonic-bridge)](https://github.com/wifiknight45/harmonic-bridge/commits/main)
 
-> 🚧 **Currently under development** — APIs, dashboard, and GitHub Pages site are actively being built. Expect rapid changes; the live site isn’t ready yet.
+> **Currently under development** — APIs, dashboard, and GitHub Pages site are actively being built. Expect rapid changes; the live site isn’t ready yet.
 
 Cross-platform **Spotify ↔ Apple Music** playlist sync with ISRC matching and harmonic recommendations.
 
